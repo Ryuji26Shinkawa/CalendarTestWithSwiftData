@@ -6,30 +6,32 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		378650522D6175640058FB55 /* CalendarTestWithSwiftDataApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3786504D2D6175640058FB55 /* CalendarTestWithSwiftDataApp.swift */; };
+		378650532D6175640058FB55 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3786504E2D6175640058FB55 /* ContentView.swift */; };
+		378650542D6175640058FB55 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 378650502D6175640058FB55 /* Item.swift */; };
+		378650552D6175640058FB55 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 378650492D6175640058FB55 /* Preview Assets.xcassets */; };
+		378650562D6175640058FB55 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3786504B2D6175640058FB55 /* Assets.xcassets */; };
+		3786505D2D6175DC0058FB55 /* Home.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3786505C2D6175DC0058FB55 /* Home.swift */; };
+		3786505F2D6176960058FB55 /* CustomDatePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3786505E2D6176960058FB55 /* CustomDatePicker.swift */; };
+		378650612D617ED60058FB55 /* DateValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 378650602D617ED00058FB55 /* DateValue.swift */; };
+		378650632D61A7970058FB55 /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = 378650622D61A7970058FB55 /* Task.swift */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXFileReference section */
+		378650492D6175640058FB55 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		3786504B2D6175640058FB55 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		3786504C2D6175640058FB55 /* CalendarTestWithSwiftData.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = CalendarTestWithSwiftData.entitlements; sourceTree = "<group>"; };
+		3786504D2D6175640058FB55 /* CalendarTestWithSwiftDataApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarTestWithSwiftDataApp.swift; sourceTree = "<group>"; };
+		3786504E2D6175640058FB55 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		3786504F2D6175640058FB55 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		378650502D6175640058FB55 /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
+		3786505C2D6175DC0058FB55 /* Home.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Home.swift; sourceTree = "<group>"; };
+		3786505E2D6176960058FB55 /* CustomDatePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomDatePicker.swift; sourceTree = "<group>"; };
+		378650602D617ED00058FB55 /* DateValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateValue.swift; sourceTree = "<group>"; };
+		378650622D61A7970058FB55 /* Task.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
 		37E97FFC2D5B022500C86669 /* CalendarTestWithSwiftData.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CalendarTestWithSwiftData.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
-
-/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		37E9800C2D5B022600C86669 /* Exceptions for "CalendarTestWithSwiftData" folder in "CalendarTestWithSwiftData" target */ = {
-			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
-			membershipExceptions = (
-				Info.plist,
-			);
-			target = 37E97FFB2D5B022500C86669 /* CalendarTestWithSwiftData */;
-		};
-/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
-
-/* Begin PBXFileSystemSynchronizedRootGroup section */
-		37E97FFE2D5B022500C86669 /* CalendarTestWithSwiftData */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			exceptions = (
-				37E9800C2D5B022600C86669 /* Exceptions for "CalendarTestWithSwiftData" folder in "CalendarTestWithSwiftData" target */,
-			);
-			path = CalendarTestWithSwiftData;
-			sourceTree = "<group>";
-		};
-/* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		37E97FF92D5B022500C86669 /* Frameworks */ = {
@@ -42,10 +44,52 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3786504A2D6175640058FB55 /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				378650492D6175640058FB55 /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		378650512D6175640058FB55 /* CalendarTestWithSwiftData */ = {
+			isa = PBXGroup;
+			children = (
+				3786504A2D6175640058FB55 /* Preview Content */,
+				3786504B2D6175640058FB55 /* Assets.xcassets */,
+				3786504C2D6175640058FB55 /* CalendarTestWithSwiftData.entitlements */,
+				3786504D2D6175640058FB55 /* CalendarTestWithSwiftDataApp.swift */,
+				3786504F2D6175640058FB55 /* Info.plist */,
+				378650582D6175850058FB55 /* Model */,
+				378650592D6175A30058FB55 /* View */,
+			);
+			path = CalendarTestWithSwiftData;
+			sourceTree = "<group>";
+		};
+		378650582D6175850058FB55 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				378650602D617ED00058FB55 /* DateValue.swift */,
+				378650622D61A7970058FB55 /* Task.swift */,
+				378650502D6175640058FB55 /* Item.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		378650592D6175A30058FB55 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				3786505C2D6175DC0058FB55 /* Home.swift */,
+				3786505E2D6176960058FB55 /* CustomDatePicker.swift */,
+				3786504E2D6175640058FB55 /* ContentView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		37E97FF32D5B022500C86669 = {
 			isa = PBXGroup;
 			children = (
-				37E97FFE2D5B022500C86669 /* CalendarTestWithSwiftData */,
+				378650512D6175640058FB55 /* CalendarTestWithSwiftData */,
 				37E97FFD2D5B022500C86669 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -72,9 +116,6 @@
 			buildRules = (
 			);
 			dependencies = (
-			);
-			fileSystemSynchronizedGroups = (
-				37E97FFE2D5B022500C86669 /* CalendarTestWithSwiftData */,
 			);
 			name = CalendarTestWithSwiftData;
 			packageProductDependencies = (
@@ -122,6 +163,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				378650552D6175640058FB55 /* Preview Assets.xcassets in Resources */,
+				378650562D6175640058FB55 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -132,6 +175,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3786505F2D6176960058FB55 /* CustomDatePicker.swift in Sources */,
+				378650522D6175640058FB55 /* CalendarTestWithSwiftDataApp.swift in Sources */,
+				378650532D6175640058FB55 /* ContentView.swift in Sources */,
+				378650612D617ED60058FB55 /* DateValue.swift in Sources */,
+				3786505D2D6175DC0058FB55 /* Home.swift in Sources */,
+				378650632D61A7970058FB55 /* Task.swift in Sources */,
+				378650542D6175640058FB55 /* Item.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

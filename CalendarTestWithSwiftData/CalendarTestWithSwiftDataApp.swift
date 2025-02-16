@@ -25,7 +25,8 @@ struct CalendarTestWithSwiftDataApp: App {
 
     var body: some Scene {
         WindowGroup {
-            ContentView()
+//            ContentView()
+            Home()
         }
         .modelContainer(sharedModelContainer)
     }

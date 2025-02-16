@@ -10,8 +10,9 @@ import SwiftData
 
 @Model
 final class Item {
-    var timestamp: Date
-    
+    // CloudKitを使う場合は初期値を入れる必要がある
+    var timestamp: Date = Date.now
+
     init(timestamp: Date) {
         self.timestamp = timestamp
     }
