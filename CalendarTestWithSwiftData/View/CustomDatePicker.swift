@@ -98,7 +98,7 @@ struct CustomDatePicker: View {
                         .padding(.horizontal)
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .background(
-                            Color.purple
+                            task.color
                                 .opacity(0.5)
                                 .clipShape(RoundedRectangle(cornerRadius: 10))
                         )
@@ -113,7 +113,7 @@ struct CustomDatePicker: View {
             // update Month
             currentDate = getCurrentMonth()
         } // onChange
-    }
+    } // body
 
     @ViewBuilder
     func CardView(value: DateValue) -> some View {

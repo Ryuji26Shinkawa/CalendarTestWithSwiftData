@@ -9,6 +9,7 @@ import SwiftUI
 
 struct Home: View {
     @State var currentDate: Date = Date()
+    @State var isShowNewTaskView: Bool = false
     var body: some View {
         ScrollView(.vertical, showsIndicators: false) {
             VStack(spacing: 20) {
@@ -21,7 +22,7 @@ struct Home: View {
             HStack {
                 // Add Button
                 Button {
-                    
+                    isShowNewTaskView.toggle()
                 } label: {
                     Text("Add Task")
                         .fontWeight(.bold)
@@ -46,6 +47,12 @@ struct Home: View {
             .padding(.top, 10)
             .foregroundStyle(.white)
             .background(.ultraThinMaterial)
+        } // safeAreaInset
+        .sheet(isPresented: $isShowNewTaskView) {
+            NewTaskView()
+                .presentationDetents([.height(300)]) // サイズ指定でハーフモーダル
+                .interactiveDismissDisabled() // 特定の条件下でsheetを閉じるの禁止
+                .presentationCornerRadius(30)
         }
     } // body
 }

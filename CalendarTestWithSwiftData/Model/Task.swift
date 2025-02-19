@@ -11,6 +11,7 @@ struct Task: Identifiable {
     var id = UUID().uuidString
     var title: String
     var time: Date = Date()
+    var color: Color = .cyan
 }
 
 struct TaskMetaData: Identifiable {
