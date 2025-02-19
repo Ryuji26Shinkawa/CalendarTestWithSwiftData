@@ -19,12 +19,14 @@ struct TaskMetaData: Identifiable {
     var taskDate: Date
 }
 
+/// 今日から指定した日数分だけシフトした日付を返す
 func getSampleData(offset: Int) -> Date {
     let calendar = Calendar.current
     let date = calendar.date(byAdding: .day, value: offset, to: Date())
     return date ?? Date()
 }
 
+/// サンプルデータ
 var tasks: [TaskMetaData] = [
     TaskMetaData(
         task: [

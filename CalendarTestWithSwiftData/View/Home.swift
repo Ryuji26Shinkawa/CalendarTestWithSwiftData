@@ -19,6 +19,7 @@ struct Home: View {
         // Safe Area View
         .safeAreaInset(edge: .bottom) {
             HStack {
+                // Add Button
                 Button {
                     
                 } label: {
@@ -29,6 +30,7 @@ struct Home: View {
                         .background(Color.orange, in: Capsule())
                         
                 }
+                // Add Remainder
                 Button {
                     
                 } label: {

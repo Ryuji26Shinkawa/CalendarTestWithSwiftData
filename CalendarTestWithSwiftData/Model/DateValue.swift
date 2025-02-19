@@ -6,6 +6,7 @@
 //
 import SwiftUI
 
+/// 日付の数字と日付情報を紐づける構造体
 struct DateValue: Identifiable {
     var id: String = UUID().uuidString
     var day: Int

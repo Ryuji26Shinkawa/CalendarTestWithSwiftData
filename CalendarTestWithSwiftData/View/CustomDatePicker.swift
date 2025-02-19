@@ -15,13 +15,16 @@ struct CustomDatePicker: View {
             // Header
             HStack(spacing: 20) {
                 VStack(alignment: .leading, spacing: 10) {
+                    // Year
                     Text(extraDate()[0])
                         .font(.caption)
                         .fontWeight(.semibold)
+                    // Month
                     Text(extraDate()[1])
                         .font(.title.bold())
                 }
                 Spacer(minLength: 0)
+                // Back Button
                 Button {
                     withAnimation {
                         currentMonth -= 1
@@ -30,6 +33,7 @@ struct CustomDatePicker: View {
                     Image(systemName: "chevron.left")
                         .font(.title2)
                 }
+                // Next Button
                 Button {
                     withAnimation {
                         currentMonth += 1
@@ -56,7 +60,9 @@ struct CustomDatePicker: View {
             let columns = Array(repeating: GridItem(.flexible()), count: 7)
             LazyVGrid(columns: columns, spacing: 50) {
                 ForEach(extractDate()) { value in
+                    // Each date View
                     CardView(value: value)
+                    // Reverses the tapped area
                         .background(
                             Capsule()
                                 .fill(Color.pink)
@@ -69,11 +75,13 @@ struct CustomDatePicker: View {
                 } // ForEach
             } // LazyVGrid
 
+            // Tasks
             VStack(spacing: 20) {
                 Text("Task")
                     .font(.title2.bold())
                     .frame(maxWidth: .infinity, alignment: .leading )
                     .padding(.vertical, 20)
+                // If the selected date and the date of the task are the same, display the task
                 if let task = tasks.first(where: { task in
                     return isSameDay(day1: task.taskDate, day2: currentDate)
                 }) {
@@ -114,15 +122,20 @@ struct CustomDatePicker: View {
                 if let task = tasks.first(where: { task in
                     return isSameDay(day1: task.taskDate, day2: value.date)
                 }) {
+                    // タスクがある場合
+                    // 日付が選択されたなら、数字を白反転
                     Text("\(value.day)")
                         .font(.title3)
                         .foregroundStyle(isSameDay(day1: task.taskDate, day2: currentDate) ? .white : .primary)
                         .frame(maxWidth: .infinity)
                     Spacer()
+                    // タスク有無表示の⚫︎
                     Circle()
                         .fill(isSameDay(day1: task.taskDate, day2: currentDate) ? .white : Color.pink)
                         .frame(width: 8, height: 8)
                 } else {
+                    // タスクがない場合
+                    // 自身が選択された日付なら、数字を白反転
                     Text("\(value.day)")
                         .font(.title3)
                         .foregroundStyle(isSameDay(day1: value.date, day2: currentDate) ? .white : .primary)
@@ -148,7 +161,7 @@ struct CustomDatePicker: View {
         let date = formatter.string(from: currentDate)
         return date.components(separatedBy: " ")
     }
-  
+    /// 今月の情報を取得
     func getCurrentMonth() -> Date {
         let calender = Calendar.current
         // Getting current Month
@@ -170,7 +183,8 @@ struct CustomDatePicker: View {
         }
         // adding offset days to get exact week day
         let firstWeekDay = calender.component(.weekday, from: days.first?.date ?? Date())
-
+        // weekday分を取得した月の日数の始めに追加する
+        // 日付の数字(day)は表示させないため全て-1とする
         for _ in 0..<(firstWeekDay - 1) {
             days.insert(DateValue(day: -1, date: Date()), at: 0)
         }
@@ -184,10 +198,13 @@ struct CustomDatePicker: View {
 }
 
 extension Date {
+    ///
     func getAllDates() ->  [Date] {
         let calender = Calendar.current
         // getting start day
+        // 年と月だけを指定して月初を出す
         let startDay = calender.date(from: Calendar.current.dateComponents([.year, .month], from: self))!
+        // 月初から1ヶ月の範囲を洗い出す
         let range = calender.range(of: .day, in: .month, for: startDay)!
         // getting date
         return range.compactMap { day -> Date in
