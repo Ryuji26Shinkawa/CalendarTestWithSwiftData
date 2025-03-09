@@ -6,8 +6,13 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct Home: View {
+    /// コンテクスト
+    @Environment(\.modelContext) private var modelContext
+    /// クエリ
+    @Query var taskMetaData: [TaskMetaData]
     @State var currentDate: Date = Date()
     @State var isShowNewTaskView: Bool = false
     var body: some View {
@@ -49,7 +54,7 @@ struct Home: View {
             .background(.ultraThinMaterial)
         } // safeAreaInset
         .sheet(isPresented: $isShowNewTaskView) {
-            NewTaskView()
+            NewTaskView(currentDate: $currentDate)
                 .presentationDetents([.height(300)]) // サイズ指定でハーフモーダル
                 .interactiveDismissDisabled() // 特定の条件下でsheetを閉じるの禁止
                 .presentationCornerRadius(30)
@@ -59,4 +64,5 @@ struct Home: View {
 
 #Preview {
     Home()
+        .modelContainer(for: [TaskMetaData.self ,Task.self])
 }

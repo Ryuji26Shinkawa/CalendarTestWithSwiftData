@@ -6,9 +6,11 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct CustomDatePicker: View {
     @Binding var currentDate: Date
+    @Query var taskMetaData: [TaskMetaData]
     @State var currentMonth: Int = 0
     var body: some View {
         VStack(spacing: 35) {
@@ -75,22 +77,20 @@ struct CustomDatePicker: View {
                 } // ForEach
             } // LazyVGrid
 
-            // Tasks
+            // Tasks 保存したタスクを表示する
             VStack(spacing: 20) {
                 Text("Task")
                     .font(.title2.bold())
                     .frame(maxWidth: .infinity, alignment: .leading )
                     .padding(.vertical, 20)
                 // If the selected date and the date of the task are the same, display the task
-                if let task = tasks.first(where: { task in
+                if let task = taskMetaData.first(where: { task in
                     return isSameDay(day1: task.taskDate, day2: currentDate)
                 }) {
                     ForEach(task.task) { task in
                         VStack(alignment: .leading, spacing: 10) {
-                            // For Custom Timing
-                            Text(task.time
-                                .addingTimeInterval(CGFloat.random(in: 0...5000)),
-                                 style: .time)
+                            // Date型を.time(Text形式)で表示
+                            Text(task.time, style: .time)
                             Text(task.title)
                                 .font(.title2.bold())
                         }
@@ -98,7 +98,7 @@ struct CustomDatePicker: View {
                         .padding(.horizontal)
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .background(
-                            task.color
+                            Color(task.colorList)
                                 .opacity(0.5)
                                 .clipShape(RoundedRectangle(cornerRadius: 10))
                         )
@@ -119,7 +119,7 @@ struct CustomDatePicker: View {
     func CardView(value: DateValue) -> some View {
         VStack {
             if value.day != -1 {
-                if let task = tasks.first(where: { task in
+                if let task = taskMetaData.first(where: { task in
                     return isSameDay(day1: task.taskDate, day2: value.date)
                 }) {
                     // タスクがある場合
@@ -194,7 +194,30 @@ struct CustomDatePicker: View {
 }
 
 #Preview {
-    CustomDatePicker(currentDate: Binding.constant(Date()))
+    CustomDatePicker(currentDate: Binding.constant(Date())
+//                     taskMetaData: [
+//                        TaskMetaData(
+//                            task: [
+//                                Task(title: "Talk to iJustine", time: Date.now, colorList: .cyan),
+//                                Task(title: "iPhone13 Great Design Change", time: Date.now, colorList: .cyan),
+//                                Task(title: "Nothing Much Workout", time: Date.now, colorList: .cyan),
+//                            ],
+//                            taskDate: getSampleData(offset: 1)
+//                        ),
+//                        TaskMetaData(
+//                            task: [
+//                                Task(title: "Talk to Jenna Ezarik", time: Date.now, colorList: .cyan)
+//                            ],
+//                            taskDate: getSampleData(offset: -3)
+//                        ),
+//                        TaskMetaData(
+//                            task: [
+//                                Task(title: "Meeting with Tim Cook", time: Date.now, colorList: .cyan),
+//                            ],
+//                            taskDate: getSampleData(offset: -8)
+//                        )
+//                     ]
+    )
 }
 
 extension Date {
