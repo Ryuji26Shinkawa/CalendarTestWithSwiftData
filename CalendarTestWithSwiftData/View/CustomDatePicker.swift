@@ -9,9 +9,13 @@ import SwiftUI
 import SwiftData
 
 struct CustomDatePicker: View {
-    @Binding var currentDate: Date
+    @Environment(\.modelContext) private var modelContext
     @Query var taskMetaData: [TaskMetaData]
     @State var currentMonth: Int = 0
+    @State private var isEditing: Bool = false
+    @State private var selectedTasks: [Task] = []
+    @Binding var currentDate: Date
+
     var body: some View {
         VStack(spacing: 35) {
             // Header
@@ -79,44 +83,86 @@ struct CustomDatePicker: View {
 
             // Tasks 保存したタスクを表示する
             VStack(spacing: 20) {
-                Text("Task")
-                    .font(.title2.bold())
-                    .frame(maxWidth: .infinity, alignment: .leading )
-                    .padding(.vertical, 20)
+                HStack {
+                    Text("Task")
+                        .font(.title2.bold())
+                        .frame(maxWidth: .infinity, alignment: .leading )
+                        .padding(.vertical, 20)
+                    // 選択したタスクを削除するボタン
+                    if !selectedTasks.isEmpty {
+                        Button("delete") {
+                            deleteSelectedTasks()
+                            isEditing = false
+                        }
+                        .foregroundStyle(.red)
+                        .transition(.move(edge: .trailing).combined(with: .opacity)) // 右からフェードイン
+                    }
+                    // 編集モードに切り替えるボタン
+                    Button(isEditing ? "done" : "edit") {
+                        isEditing.toggle()
+                    }
+                }
                 // If the selected date and the date of the task are the same, display the task
                 if let task = taskMetaData.first(where: { task in
                     return isSameDay(day1: task.taskDate, day2: currentDate)
                 }) {
                     ForEach(task.task) { task in
-                        VStack(alignment: .leading, spacing: 10) {
-                            // Date型を.time(Text形式)で表示
-                            Text(task.time, style: .time)
-                            Text(task.title)
-                                .font(.title2.bold())
+                        HStack {
+                            // 選択ボタンの表示
+                            if isEditing {
+                                Button {
+                                    toggleSelection(task)
+                                } label: {
+                                    // チェック付きは"checkmark.circle.fill"で赤色
+                                    Image(systemName: selectedTasks.contains(where: { $0 == task }) ? "checkmark.circle.fill" : "circle")
+                                        .foregroundColor(selectedTasks.contains(where: { $0 == task }) ? .red :.gray)
+                                        .font(.title3)
+                                }
+                                .transition(.opacity) // アニメーション付き
+                                .onDisappear {
+                                    // ボタンが非表示になったら選択していたタスクをリセット
+                                    selectedTasks.removeAll()
+                                }
+                            }
+                            // タスクの表示
+                            VStack(alignment: .leading, spacing: 10) {
+                                // Date型を.time(Text形式)で表示
+                                Text(task.time, style: .time)
+                                Text(task.title)
+                                    .font(.title2.bold())
+                            }
+                            .padding(.vertical, 10)
+                            .padding(.horizontal)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .background(
+                                Color(task.colorList)
+                                    .opacity(0.5)
+                                    .clipShape(RoundedRectangle(cornerRadius: 10))
+                            )
                         }
-                        .padding(.vertical, 10)
-                        .padding(.horizontal)
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                        .background(
-                            Color(task.colorList)
-                                .opacity(0.5)
-                                .clipShape(RoundedRectangle(cornerRadius: 10))
-                        )
                     }
                 } else {
                     Text("No Task Found")
                 }
             }
             .padding()
+            .animation(.default, value: isEditing) // アニメーション適用
+            .animation(.default, value: selectedTasks) // アニメーション適用
         } // Main VStack
         .onChange(of: currentMonth) {
             // update Month
             currentDate = getCurrentMonth()
         } // onChange
+        .onChange(of: isEditing) { _, isEditing in
+            // 編集モードが終わったら、選択したタスクを削除
+            if isEditing == false {
+                selectedTasks.removeAll()
+            }
+        }
     } // body
 
     @ViewBuilder
-    func CardView(value: DateValue) -> some View {
+    private func CardView(value: DateValue) -> some View {
         VStack {
             if value.day != -1 {
                 if let task = taskMetaData.first(where: { task in
@@ -149,20 +195,20 @@ struct CustomDatePicker: View {
     }
 
     // checking dates
-    func isSameDay(day1: Date, day2: Date) -> Bool {
+    private func isSameDay(day1: Date, day2: Date) -> Bool {
         let calender = Calendar.current
         return calender.isDate(day1, inSameDayAs: day2)
     }
 
     // extrating Year and Month for display
-    func extraDate() -> [String] {
+    private func extraDate() -> [String] {
         let formatter = DateFormatter()
         formatter.dateFormat = "YYYY MMMM"
         let date = formatter.string(from: currentDate)
         return date.components(separatedBy: " ")
     }
     /// 今月の情報を取得
-    func getCurrentMonth() -> Date {
+    private func getCurrentMonth() -> Date {
         let calender = Calendar.current
         // Getting current Month
         guard let currentMonth = calender.date(byAdding: .month, value: self.currentMonth, to: Date()) else {
@@ -171,7 +217,7 @@ struct CustomDatePicker: View {
         return currentMonth
     }
 
-    func extractDate() -> [DateValue] {
+    private func extractDate() -> [DateValue] {
         let calender = Calendar.current
         // Getting current Month
         let currentMonth = getCurrentMonth()
@@ -190,6 +236,21 @@ struct CustomDatePicker: View {
         }
 
         return days
+    }
+    /// 選択の切り替え
+    private func toggleSelection(_ task: Task) {
+        if selectedTasks.contains(task) {
+            selectedTasks.removeAll(where: {$0 == task})
+        } else {
+            selectedTasks.append(task)
+        }
+    }
+    /// 選択したタスクをまとめて削除
+    private func deleteSelectedTasks() {
+        for task in selectedTasks {
+            modelContext.delete(task)
+        }
+        selectedTasks.removeAll() // 選択をリセット
     }
 }
 
